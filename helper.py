@@ -9,6 +9,8 @@ import os
 
 ExganceInfo = namedtuple("ExganceInfo", ["market", "volume"])
 CombinationInfo = namedtuple("CombinationInfo", ["market_1", "market_2", "mean", "std"])
+OpenTradePrice = namedtuple("OpenTradePrice", ["open_price", "open_asset"])
+
 
 def fetch_data_hour_by_exchange(fswym, tsym, exchange):
     """
