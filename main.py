@@ -89,6 +89,6 @@ if __name__ == '__main__':
 
 
     model = ManulaStrategy(10000, data, market_1, market_2)
-    model.manual_strategy(0, viz, EXP_NAME)
+    model.manual_strategy(0.002, viz, EXP_NAME)
 
 

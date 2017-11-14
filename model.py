@@ -13,8 +13,6 @@ class ManulaStrategy(object):
         self.ac_1_history = [self.account_1]
         self.ac_2_history = [self.account_2]
         self.money = [self.account_1 + self.account_2]
-        self.pnl_exch1 = []
-        self.pnl_exch2 = []
 
         # trading_price
         self.open_1 = OpenTradePrice(0., "")
@@ -130,10 +128,8 @@ class ManulaStrategy(object):
                 # close current position
                 if self.open_1.open_asset == "SHORT":
                     # PnL of both trades
-                    pnl_asset1 = self.open_1.open_price / p1 - 1
-                    pnl_asset2 = p2 / self.open_2.open_price - 1
-                    self.pnl_exch1.append(pnl_asset1)
-                    self.pnl_exch2.append(pnl_asset2)
+                    pnl_asset1 = ((self.open_1.open_price / p1) - 1) - transaction_cost
+                    pnl_asset2 = ((p2 / self.open_2.open_price) - 1) - transaction_cost
                     print(
                         "trade summary:{: ^10.2f}{: ^10.2f}{: ^10.2f}{: ^10.2f}{: ^10s}{: ^10s}{: ^10.2f}{: ^10.2f}"
                         .format(self.open_1.open_price, p1, self.open_2.open_price, p2, self.open_1.open_asset, self.open_2.open_asset, pnl_asset1, pnl_asset2))
@@ -148,10 +144,8 @@ class ManulaStrategy(object):
                 # close current position
                 elif self.open_1.open_asset == "LONG":
                     # PnL of both trades
-                    pnl_asset1 = p1 / self.open_1.open_price - 1
-                    pnl_asset2 = self.open_2.open_price / p2 - 1
-                    self.pnl_exch1.append(pnl_asset1)
-                    self.pnl_exch2.append(pnl_asset2)
+                    pnl_asset1 = ((p1 / self.open_1.open_price) - 1) - transaction_cost
+                    pnl_asset2 = ((self.open_2.open_price / p2) - 1) - transaction_cost
                     print(
                         "trade summary:{: ^10.2f}{: ^10.2f}{: ^10.2f}{: ^10.2f}{: ^10s}{: ^10s}{: ^10.2f}{: ^10.2f}"
                             .format(self.open_1.open_price, p1, self.open_2.open_price, p2, self.open_1.open_asset,
