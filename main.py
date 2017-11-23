@@ -1,20 +1,19 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import itertools
+from datetime import datetime
+from os.path import join as path_join
+
 import numpy as np
 import pandas as pd
-import argparse
-from scipy import stats
-from os.path import join as path_join
-from helper import CombinationInfo
-import itertools
-from model import ManulaStrategy
 from visdom import Visdom
-from datetime import datetime
+
+from helper import CombinationInfo
 
 MARKETS = ['Bitfinex', 'Coinbase', 'Poloniex', 'Gemini', 'Kraken', 'BitTrex', 'HitBTC', 'Cexio', 'Quoine', 'Exmo']
 BASE_DIR = "./data"
-TIME_FRAME = "daily"
+TIME_FRAME = "minute"
 fsym = "ETH"
 tsym = "USD"
 EXP_NAME = "exp-{}".format(datetime.now())
@@ -81,14 +80,14 @@ if __name__ == '__main__':
         print("{: ^10s}{: ^10s}{: ^10.2f}{: ^10.2f}".format(e[0], e[1], e[2], e[3]))
 
 
-    market_1 = "Exmo"
-    market_2 = "Kraken"
-
-    assert(data[market_1].shape[0] == data[market_2].shape[0])  # both sizes must be equal
-    plot_timeseries(data, market_1, market_2, EXP_NAME)
-
-
-    model = ManulaStrategy(10000, data, market_1, market_2)
-    model.manual_strategy(0.002, viz, EXP_NAME)
+    # market_1 = "Exmo"
+    # market_2 = "Kraken"
+    #
+    # assert(data[market_1].shape[0] == data[market_2].shape[0])  # both sizes must be equal
+    # plot_timeseries(data, market_1, market_2, EXP_NAME)
+    #
+    #
+    # model = ManulaStrategy(10000, data, market_1, market_2)
+    # model.manual_strategy(0.002, viz, EXP_NAME)
 
 
