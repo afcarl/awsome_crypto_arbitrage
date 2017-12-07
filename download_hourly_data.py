@@ -4,7 +4,8 @@ import json
 import requests
 from helper import ExganceInfo, fetch_data_daily_by_exchange, fetch_data_by_exchange, ensure_dir
 from os.path import join as path_join
-
+import time as T
+import datetime as DT
 
 grey = .6, .6, .6
 TOP_N = 10
@@ -12,8 +13,8 @@ TOP_N = 10
 FSYM = "ETH"
 TSYM = "USD"
 MARKETS = ['Bitfinex', 'Coinbase', 'Poloniex', 'Gemini', 'Kraken', 'BitTrex', 'HitBTC', 'Cexio', 'Quoine', 'Exmo']
-DATE_START = 1511337600
-DATE_END = 1510732800
+DATE_START = DT.datetime.strptime("{} 08:00:00".format(DT.datetime.now().strftime('%Y-%m-%d')), '%Y-%m-%d %H:%M:%S')
+DATE_END = DATE_START - DT.timedelta(days=7)
 LIMIT = 2000
 
 def get_data(container, time):
@@ -25,7 +26,7 @@ for market in MARKETS:
     print("{}".format(market), end="")
     dfs = []
 
-    num_row, time = get_data(dfs, DATE_START)
+    num_row, time = get_data(dfs, T.mktime(DATE_START.timetuple()))
     while num_row > LIMIT:
         num_row, time = get_data(dfs, time)
 
